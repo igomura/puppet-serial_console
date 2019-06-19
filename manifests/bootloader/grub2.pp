@@ -10,7 +10,7 @@ class serial_console::bootloader::grub2 (
 ) {
 
   $_unit = regsubst($ttys,'^ttyS(\d+)$', '\1')
-  $_parity = regsubst($ttys, '(.).*', '\1')
+  $_parity = regsubst($parity, '(.).*', '\1')
 
   if $enabled {
     augeas {'serial-bootloader':

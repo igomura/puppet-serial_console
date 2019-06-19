@@ -5,7 +5,7 @@ class serial_console::securetty (
 ) {
 
   if $enabled {
-    augeas {'console_securetty':
+    augeas {'serial-securetty':
       context => '/files/etc/securetty',
       onlyif  => "match *[.=\'${ttys}\'] size == 0",
       changes => [

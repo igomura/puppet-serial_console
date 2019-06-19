@@ -63,4 +63,4 @@ Returns boot loader name
 
 ***
 
-
+Some ideas were taken from https://github.com/CERIT-SC/puppet-serial_console

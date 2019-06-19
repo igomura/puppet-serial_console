@@ -11,7 +11,7 @@ class serial_console::bootloader::grub1 (
 ){
 
   $_unit = regsubst($ttys,'^ttyS(\d+)$','\1')
-  $_parity = regsubst($ttys, '(.).*', '\1')
+  $_parity = regsubst($parity, '(.).*', '\1')
 
   if $enabled {
     augeas {'serial-bootloader':
@@ -22,6 +22,8 @@ class serial_console::bootloader::grub1 (
         'rm splashimage',
         'rm serial',
         'rm terminal',
+        'rm title/kernel/rhgb',
+        'rm title/kernel/quiet',
 
         'ins serial after default',
         "set serial/unit ${_unit}",
@@ -34,9 +36,6 @@ class serial_console::bootloader::grub1 (
         "set terminal/timeout ${timeout}",
         "set terminal/serial \"\"",
         "set terminal/console \"\"",
-
-        'rm title/kernel/rhgb',
-        'rm title/kernel/quiet',
 
         "setm title/kernel console[1] ${tty}",
         "setm title/kernel console[2] ${ttys},${speed}${_parity}${word}"
