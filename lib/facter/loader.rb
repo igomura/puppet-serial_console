@@ -6,7 +6,7 @@
 #
 # Caveats:
 #
-Facter.add("bootloader") do
+Facter.add("loader") do
   confine :kernel => :linux
   setcode do
     value = nil
@@ -16,6 +16,10 @@ Facter.add("bootloader") do
       value = 'grub1'
     elsif File.exists?('/etc/grub.conf')
       value = 'grub1'
+    elsif File.exists?('/etc/lilo.conf')
+      value = 'lilo'
+    else
+      value = 'Unknown'
     end
     value
   end

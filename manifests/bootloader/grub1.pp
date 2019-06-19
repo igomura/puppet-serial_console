@@ -1,19 +1,20 @@
 # Configuration for grub version below 2.0
-class serial_console::grub1 (
-  String  $port    = $serial_console::port,
-  String  $console = $serial_console::console,
-  String  $speed   = $serial_console::speed,
-  String  $word    = $serial_console::word,
+class serial_console::bootloader::grub1 (
+  String  $ttys    = $serial_console::ttys,
+  String  $tty     = $serial_console::tty,
+  Integer $speed   = $serial_console::speed,
+  Integer $word    = $serial_console::word,
   String  $parity  = $serial_console::parity,
-  String  $stop    = $serial_console::stop,
-  String  $timeout = $serial_console::timeout,
+  Integer $stop    = $serial_console::stop,
+  Integer $timeout = $serial_console::timeout,
   Boolean $enabled = $serial_console::enabled
 ){
 
-  $unit = regsubst($port,'^ttyS(\d+)$','\1')
+  $_unit = regsubst($ttys,'^ttyS(\d+)$','\1')
+  $_parity = regsubst($ttys, '(.).*', '\1')
 
   if $enabled {
-    augeas {'serial-grub':
+    augeas {'serial-bootloader':
       context => '/files/boot/grub/grub.conf',
       onlyif  => 'match serial/unit size == 0',
       changes => [
@@ -23,7 +24,7 @@ class serial_console::grub1 (
         'rm terminal',
 
         'ins serial after default',
-        "set serial/unit ${unit}",
+        "set serial/unit ${_unit}",
         "set serial/speed ${speed}",
         "set serial/word ${word}",
         "set serial/parity ${parity}",
@@ -37,13 +38,13 @@ class serial_console::grub1 (
         'rm title/kernel/rhgb',
         'rm title/kernel/quiet',
 
-        "setm title/kernel console[1] ${console}",
-        "setm title/kernel console[2] ${port},${speed}n${word}"
+        "setm title/kernel console[1] ${tty}",
+        "setm title/kernel console[2] ${ttys},${speed}${_parity}${word}"
       ]
     }
   }
   else {
-    augeas {'serial-grub':
+    augeas {'serial-bootloader':
       context => '/files/boot/grub/grub.conf',
       changes => [
         'rm serial',

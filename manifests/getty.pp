@@ -1,7 +1,7 @@
 # Setup getty process to start
 class serial_console::getty (
-  String  $port     = $serial_console::port,
-  String  $speed    = $serial_console::speed,
+  String  $ttys     = $serial_console::ttys,
+  Integer $speed    = $serial_console::speed,
   Boolean $enabled  = $serial_console::enabled
 ) {
 
@@ -10,18 +10,18 @@ class serial_console::getty (
       service {'serial-getty':
         ensure    => $enabled,
         provider  => 'upstart',
-        status    => "/sbin/initctl status serial DEV=${port} SPEED=${speed}",
-        start     => "/sbin/initctl start serial DEV=${port} SPEED=${speed}",
-        stop      => "/sbin/initctl stop serial DEV=${port} SPEED=${speed}",
-        subscribe => Augeas['serial-grub']
+        status    => "/sbin/initctl status serial DEV=${ttys} SPEED=${speed}",
+        start     => "/sbin/initctl start serial DEV=${ttys} SPEED=${speed}",
+        stop      => "/sbin/initctl stop serial DEV=${ttys} SPEED=${speed}",
+        subscribe => Augeas['serial-bootloader']
       }
     }
     'systemd': {
       service { 'serial-getty':
         ensure    => $enabled,
         enable    => $enabled,
-        name      => "serial-getty@${port}",
-        subscribe => Augeas['serial-grub']
+        name      => "serial-getty@${ttys}",
+        subscribe => Augeas['serial-bootloader']
       }
     }
     default: {

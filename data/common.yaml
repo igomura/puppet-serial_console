@@ -1,8 +1,8 @@
-serial_console::port: 'ttyS0'
-serial_console::console: 'tty0'
-serial_console::speed: '115200'
-serial_console::word: '8'
+serial_console::ttys: 'ttyS0'
+serial_console::tty: 'tty0'
+serial_console::speed: 115200
+serial_console::word: 8
 serial_console::parity: 'no'
-serial_console::stop: '1'
-serial_console::timeout: '10'
+serial_console::stop: 1
+serial_console::timeout: 10
 serial_console::enabled: true

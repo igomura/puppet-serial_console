@@ -27,13 +27,13 @@ Full configuration options:
 
 ```puppet
 class { 'serial_console':
-  port    => '...',     # device name, e.g. ttyS1
-  console => '...',     # console device name, e.g. tty0
-  speed   => '...',     # serial port speed, e.g. 115200
-  word    => '...',     # serial port word size, e.g. 8
+  ttys    => '...',     # device name, e.g. ttyS1
+  tty     => '...',     # console device name, e.g. tty0
+  speed   => ...,       # serial port speed, e.g. 115200
+  word    => ...,       # serial port word size, e.g. 8
   parity  => '...',     # serial port parity, e.g. yes or no
-  stop    => '...',     # serial port stop bits, e.g. 1
-  timeout => '...',     # grub menu timeout, e.g. 10
+  stop    => ...,       # serial port stop bits, e.g. 1
+  timeout => ...,       # grub menu timeout, e.g. 10
   enabled => false|true # create/remove configuration
 }
 
@@ -49,9 +49,9 @@ Returns binary file name of init process with PID 1
 'init'
 ```
 
-### $::bootloader
+### $::loader
 
-Returns bootloader name
+Returns boot loader name
 
 ```puppet
 'grub2'
@@ -62,4 +62,5 @@ Returns bootloader name
 * Igor Muratov <imuratov@box.com>
 
 ***
+
 
