@@ -7,25 +7,13 @@ class serial_console::getty (
 
   case $::sys_init {
     'init': {
-      service {'serial-getty':
-        ensure    => $enabled,
-        provider  => 'upstart',
-        status    => "/sbin/initctl status serial DEV=${ttys} SPEED=${speed}",
-        start     => "/sbin/initctl start serial DEV=${ttys} SPEED=${speed}",
-        stop      => "/sbin/initctl stop serial DEV=${ttys} SPEED=${speed}",
-        subscribe => Augeas['serial-bootloader']
-      }
+      contain serial_console::getty::upstart
     }
     'systemd': {
-      service { 'serial-getty':
-        ensure    => $enabled,
-        enable    => $enabled,
-        name      => "serial-getty@${ttys}",
-        subscribe => Augeas['serial-bootloader']
-      }
+      contain serial_console::getty::systemd
     }
     default: {
-      fail("Serial console has no support for service provider XX")
+      fail("Support for init ${::sys_init} is not implemented")
     }
   }
 }
