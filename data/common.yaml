@@ -1,5 +1,5 @@
 serial_console::ttys: 'ttyS1'
-serial_console::tty: 'tty1'
+serial_console::tty: 'tty0'
 serial_console::speed: 115200
 serial_console::word: 8
 serial_console::parity: 'no'
