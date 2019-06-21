@@ -3,27 +3,26 @@
   "version": "0.1.0",
   "author": "Igor Muratov <imuratov@box.com>",
   "summary": "System serial console setup",
-  "license": "GPL",
+  "license": "MIT",
   "source": "https://git.dev.box.net/imuratov/serial_console.git",
   "project_page": "https://git.dev.box.net/imuratov/serial_console",
   "issues_url": "https://git.dev.box.net/imuratov/serial_console/issues",
-  "dependencies": [],
   "tags": [
     "serial_console"
   ],
+  "dependencies": [],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "7"
-      ]
+      "operatingsystemrelease": [ "6", "7" ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [ "6", "7" ]
     },
     {
       "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "6"
-      ]
+      "operatingsystemrelease": [ "6", "6" ]
     }
-  ],
-  "requirements": []
+  ]
 }
